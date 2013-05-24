@@ -50,3 +50,9 @@ case node['platform_family']
   else
     return "#{node['platform']} is not supported by the #{cookbook_name}::#{recipe_name} recipe"
 end
+
+node['vagrant']['plugins'].each() do |plugin|
+  execute "vagrant plugin install #{plugin}" do
+    command "vagrant plugin install #{plugin}"
+  end
+end

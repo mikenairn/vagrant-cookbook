@@ -2,6 +2,7 @@ default['vagrant']['download_url'] = 'http://files.vagrantup.com/packages'
 default['vagrant']['version'] = '1.2.2'
 default['vagrant']['version_hash'] = '7e400d00a3c5a0fdf2809c8b5001a035415a607b'
 default['vagrant']['arch'] = kernel['machine'] =~ /x86_64/ ? "x86_64" : "i686"
+default['vagrant']['plugins'] = []
 
 case node['platform_family']
   when 'mac_os_x'
