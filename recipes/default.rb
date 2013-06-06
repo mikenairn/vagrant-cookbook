@@ -54,5 +54,6 @@ end
 node['vagrant']['plugins'].each() do |plugin|
   execute "vagrant plugin install #{plugin}" do
     command "vagrant plugin install #{plugin}"
+    not_if "vagrant plugin list | grep #{plugin}"
   end
 end
