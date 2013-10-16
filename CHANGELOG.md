@@ -6,7 +6,6 @@ This file is used to list changes made in each version of vagrant.
 
 * Initial release of vagrant
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
+## 1.3.5:
 
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+* Updated default Vagrant version to 1.3.5

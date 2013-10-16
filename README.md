@@ -1,31 +1,79 @@
-vagrant Cookbook
+Vagrant Cookbook
 ================
-Instll vagrant
+
+Installs Vagrant and Vagrant plugins
 
 Requirements
 ------------
 
+### Platform:
+
+* Mac_os_x
+* Ubuntu
+
+### Cookbooks:
+
+* dmg
+
 Attributes
 ----------
 
-Usage
------
-Just include `vagrant` in your node's `run_list`:
+<table>
+  <tr>
+    <td>Attribute</td>
+    <td>Description</td>
+    <td>Default</td>
+  </tr>
+  <tr>
+    <td><code>node['vagrant']['download_url']</code></td>
+    <td>Download URL</td>
+    <td><code>http://files.vagrantup.com/packages</code></td>
+  </tr>
+  <tr>
+    <td><code>node['vagrant']['version']</code></td>
+    <td>Vagrant version to install</td>
+    <td><code>1.3.5</code></td>
+  </tr>
+  <tr>
+    <td><code>node['vagrant']['checksum']</code></td>
+    <td>Checksum for file download</td>
+    <td><code>a40522f5fabccb9ddabad03d836e120ff5d14093</code></td>
+  </tr>
+</table>
 
-```json
+Recipes
+-------
+
+### vagrant::default
+
+Installs Vagrant and Vagrant plugins
+
+
+Usage
+-------
+
+### Example Chef Solo Config
+
+```
 {
-  "name":"my_node",
+  "instance_role": "dev_host",
+  "vagrant": {
+    "version": "1.3.5",
+    "version_hash": "a40522f5fabccb9ddabad03d836e120ff5d14093",
+    "plugins": ["vagrant-aws", "vagrant-omnibus", "vagrant-butcher"]
+  },
   "run_list": [
     "recipe[vagrant]"
   ]
 }
 ```
 
-Contributing
-------------
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+License and Author
+------------------
+
+Author:: Michael Nairn (<m.nairn@gmail.com>)
+
+Copyright:: 2013, Michael Nairn
+
+License:: Apache 2.0
+
