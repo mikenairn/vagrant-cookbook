@@ -29,3 +29,10 @@ attribute 'vagrant/version',
           :required => "required",
           :default => "1.3.5",
           :recipes => ["vagrant::default"]
+
+attribute 'vagrant/plugins',
+          :display_name => "Vagrant plugins to install",
+          :description => "Vagrant plugins to install",
+          :required => "opyinal",
+          :default => [],
+          :recipes => ["vagrant::default"]

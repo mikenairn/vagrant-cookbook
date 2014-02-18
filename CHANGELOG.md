@@ -13,4 +13,5 @@ This file is used to list changes made in each version of vagrant.
 ## 1.4.0:
 
 * Updated default Vagrant version to 1.4.3
-* Updated to work with new download endpoint
+* Updated to work with new download endpoint(http://www.vagrantup.com/downloads.html)
+* Add optional version attribute for vagrant plugins
