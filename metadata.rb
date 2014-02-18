@@ -4,7 +4,7 @@ maintainer_email 'm.nairn@gmail.com'
 license           'Apache 2.0'
 description      'Installs Vagrant and Vagrant plugins'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          '1.3.5'
+version          '1.4.0'
 
 %w{ mac_os_x ubuntu }.each do |platform|
   supports platform
@@ -30,9 +30,9 @@ attribute 'vagrant/version',
           :default => "1.3.5",
           :recipes => ["vagrant::default"]
 
-attribute 'vagrant/checksum',
-          :display_name => "Checksum for file download",
-          :description => "Checksum for file download",
-          :required => "required",
-          :default => "a40522f5fabccb9ddabad03d836e120ff5d14093",
+attribute 'vagrant/plugins',
+          :display_name => "Vagrant plugins to install",
+          :description => "Vagrant plugins to install",
+          :required => "optional",
+          :default => [],
           :recipes => ["vagrant::default"]

@@ -35,9 +35,9 @@ Attributes
     <td><code>1.3.5</code></td>
   </tr>
   <tr>
-    <td><code>node['vagrant']['checksum']</code></td>
-    <td>Checksum for file download</td>
-    <td><code>a40522f5fabccb9ddabad03d836e120ff5d14093</code></td>
+    <td><code>node['vagrant']['plugins']</code></td>
+    <td>Vagrant plugins to install</td>
+    <td><code>1.3.5</code></td>
   </tr>
 </table>
 
@@ -58,9 +58,24 @@ Usage
 {
   "instance_role": "dev_host",
   "vagrant": {
-    "version": "1.3.5",
-    "version_hash": "a40522f5fabccb9ddabad03d836e120ff5d14093",
-    "plugins": ["vagrant-aws", "vagrant-omnibus", "vagrant-butcher"]
+     "version": "1.4.3",
+        "plugins": [
+          {
+            "vagrant-aws": {
+              "version": "0.4.1"
+            }
+          },
+          {
+            "vagrant-omnibus": {
+              "version": "1.2.1"
+            }
+          },
+          {
+            "vagrant-butcher": {
+              "version": "2.1.4"
+            }
+          }
+        ]
   },
   "run_list": [
     "recipe[vagrant]"

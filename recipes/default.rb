@@ -18,7 +18,7 @@
 case node['platform_family']
   when 'redhat', 'fedora'
     remote_file "#{Chef::Config['file_cache_path']}/#{node['vagrant']['rpm']}" do
-      source node['vagrant']['rpm_url']
+      source node['vagrant']['url']
       mode 0644
       not_if "test -f #{Chef::Config['file_cache_path']}/#{node['vagrant']['rpm']}"
     end
@@ -29,7 +29,7 @@ case node['platform_family']
     end
   when "debian"
     remote_file "#{Chef::Config['file_cache_path']}/#{node['vagrant']['deb']}" do
-      source node['vagrant']['deb_url']
+      source node['vagrant']['url']
       mode 0644
       not_if "test -f #{Chef::Config['file_cache_path']}/#{node['vagrant']['deb']}"
     end
@@ -40,7 +40,7 @@ case node['platform_family']
     end
   when "mac_os_x"
     dmg_package "Vagrant" do
-      source node['vagrant']['dmg_url']
+      source node['vagrant']['url']
       type "pkg"
       action :install
       not_if "vagrant --version | grep #{node['vagrant']['version']}"
@@ -49,9 +49,26 @@ case node['platform_family']
     return "#{node['platform']} is not supported by the #{cookbook_name}::#{recipe_name} recipe"
 end
 
-node['vagrant']['plugins'].each() do |plugin|
-  execute "vagrant plugin install #{plugin}" do
-    command "vagrant plugin install #{plugin}"
-    not_if "vagrant plugin list | grep #{plugin}"
+node['vagrant']['plugins'].each do |plugin_config|
+  current_plugins_list = `vagrant plugin list`
+  plugin_config.each_pair do |plugin, config|
+    current_plugin = /#{plugin} \((\d+\.\d+\.\d+)\)/.match(current_plugins_list)
+    plugin_action = current_plugin ? 'update' : 'install'
+    run_cmd = true
+
+    if current_plugin
+      if config[:version] && current_plugin[1] != config[:version]
+        run_cmd = true
+      else
+        run_cmd = false
+      end
+    end
+
+    cmd = "vagrant plugin #{plugin_action} #{plugin}"
+    cmd += " --plugin-version #{config[:version]}" if config[:version]
+    execute cmd do
+      command cmd
+      only_if { run_cmd }
+    end
   end
 end
