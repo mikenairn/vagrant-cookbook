@@ -18,7 +18,7 @@
 case node['platform_family']
   when 'redhat', 'fedora'
     remote_file "#{Chef::Config['file_cache_path']}/#{node['vagrant']['rpm']}" do
-      source node['vagrant']['rpm_url']
+      source node['vagrant']['url']
       mode 0644
       not_if "test -f #{Chef::Config['file_cache_path']}/#{node['vagrant']['rpm']}"
     end
@@ -29,7 +29,7 @@ case node['platform_family']
     end
   when "debian"
     remote_file "#{Chef::Config['file_cache_path']}/#{node['vagrant']['deb']}" do
-      source node['vagrant']['deb_url']
+      source node['vagrant']['url']
       mode 0644
       not_if "test -f #{Chef::Config['file_cache_path']}/#{node['vagrant']['deb']}"
     end
@@ -40,7 +40,7 @@ case node['platform_family']
     end
   when "mac_os_x"
     dmg_package "Vagrant" do
-      source node['vagrant']['dmg_url']
+      source node['vagrant']['url']
       type "pkg"
       action :install
       not_if "vagrant --version | grep #{node['vagrant']['version']}"
