@@ -1,0 +1,27 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[vagrant::default]
+    attributes:
+  - name: plugins
+    run_list:
+      - recipe[vagrant::default]
+    attributes:
+      vagrant:
+        plugins:
+          -
+            vagrant-aws:
+              version: "0.4.1"
+          -
+            vagrant-omnibus:
+              version: "1.4.1"

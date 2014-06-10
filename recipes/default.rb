@@ -50,25 +50,14 @@ case node['platform_family']
 end
 
 node['vagrant']['plugins'].each do |plugin_config|
-  current_plugins_list = `vagrant plugin list`
   plugin_config.each_pair do |plugin, config|
-    current_plugin = /#{plugin} \((\d+\.\d+\.\d+)\)/.match(current_plugins_list)
-    plugin_action = current_plugin ? 'update' : 'install'
-    run_cmd = true
-
-    if current_plugin
-      if config[:version] && current_plugin[1] != config[:version]
-        run_cmd = true
-      else
-        run_cmd = false
-      end
-    end
-
-    cmd = "vagrant plugin #{plugin_action} #{plugin}"
+    cmd = "vagrant plugin install #{plugin}"
     cmd += " --plugin-version #{config[:version]}" if config[:version]
+    check = plugin
+    check += " (#{config[:version]})" if config[:version]
     execute cmd do
       command cmd
-      only_if { run_cmd }
+      not_if "vagrant plugin list | grep \"#{check}\""
     end
   end
 end
